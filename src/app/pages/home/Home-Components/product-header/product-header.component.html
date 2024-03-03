@@ -1,0 +1,28 @@
+<mat-card>
+  <div class="flex justify-between">
+    <div class="p-3">
+      <button mat-button [matMenuTriggerFor]="sortByMenu">
+        Sort by {{ sortOrder }}
+      </button>
+      <mat-menu #sortByMenu="matMenu">
+        <button (click)="onSortUpdate('Desc')" mat-menu-item>Desc</button>
+        <button (click)="onSortUpdate('Asc')" mat-menu-item>Asc</button>
+      </mat-menu>
+    </div>
+    <div class="flex items-center p-3">
+      <div>
+        <button mat-button [matMenuTriggerFor]="showNumofItems">
+          Show {{ showNumberofItems }}
+          <mat-icon>expand_more</mat-icon>
+        </button>
+        <mat-menu #showNumofItems="matMenu">
+          @for (itemNums of showItemsLimit; track $index) {
+          <button class="p-3" (click)="onShowItemNumberUpdate(itemNums)">
+            {{ itemNums }}
+          </button>
+          }
+        </mat-menu>
+      </div>
+    </div>
+  </div>
+</mat-card>
