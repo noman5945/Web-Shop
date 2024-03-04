@@ -1,9 +1,12 @@
 <!-- side bar which can be slided -->
 <mat-drawer-container [autosize]="true" class="mx-auto min-h-full border-x">
   <mat-drawer class="p-6" opened="true" mode="side">
-    <div>Filters</div>
+    <app-filter (showCategory)="onSelectedCategory($event)"></app-filter>
   </mat-drawer>
   <mat-drawer-content class="p-6">
-    <app-product-header></app-product-header>
+    <app-product-header
+      (changeColumn)="onColsNumChange($event)"
+    ></app-product-header>
+    <p>{{ selectedCategory }}</p>
   </mat-drawer-content>
 </mat-drawer-container>
