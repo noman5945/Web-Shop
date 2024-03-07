@@ -10,18 +10,21 @@
     <mat-grid-list gutterSize="16" [cols]="colsNum" [rowHeight]="rowHight">
       <mat-grid-tile>
         <app-product-box
+          (addToCart)="onAddItemToCart($event)"
           class="w-full"
           [fullWidthMode]="colsNum === 1"
         ></app-product-box>
       </mat-grid-tile>
       <mat-grid-tile>
         <app-product-box
+          (addToCart)="onAddItemToCart($event)"
           class="w-full"
           [fullWidthMode]="colsNum === 1"
         ></app-product-box>
       </mat-grid-tile>
       <mat-grid-tile>
         <app-product-box
+          (addToCart)="onAddItemToCart($event)"
           class="w-full"
           [fullWidthMode]="colsNum === 1"
         ></app-product-box>

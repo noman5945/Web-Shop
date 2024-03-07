@@ -1,0 +1,50 @@
+import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+import { Cart, CartItem } from '../models/cart.model';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class CartService {
+  /**
+   * Only Responsibilty of this service is to Handle adding items into cart or remove it
+   * when a new observer subscribes to a BehaviorSubject, it immediately receives the current value (or the last value that was emitted).
+   * simply the the value of 'cart' will change whenever a new item is added by the user on runtime
+   * When added to the cart a notification will be displayed. MatsnackBar will do the job so the dependecy was injected via constructor
+   */
+  cart = new BehaviorSubject<Cart>({ items: [] });
+  constructor(private _snackBar: MatSnackBar) {}
+
+  addItemToCart(item: CartItem) {
+    /**
+     * Spread all existing items out of the cart array
+     */
+    const cartItems = [...this.cart.value.items];
+
+    /**
+     * Find if the currently added item already exists in the cart or not
+     */
+
+    const itemInCart = cartItems.find(
+      (existingItem) => existingItem.Id === item.Id
+    );
+
+    /**
+     * If the item is found then increase the Qty by 1 otherwise push the new item into cart array
+     */
+    if (itemInCart) {
+      itemInCart.Qty = itemInCart.Qty + 1;
+    } else {
+      cartItems.push(item);
+    }
+
+    /**
+     * Finally emit the object cart so that every components which are subscribed to cart can catch the updated value
+     * Aand display success toast/snackbar/notification
+     */
+    this.cart.next({ items: cartItems });
+    this._snackBar.open('1 item added to the cart', 'Ok', { duration: 3000 });
+    console.log(this.cart.value);
+  }
+}
