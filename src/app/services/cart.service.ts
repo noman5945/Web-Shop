@@ -16,6 +16,10 @@ export class CartService {
   cart = new BehaviorSubject<Cart>({ items: [] });
   constructor(private _snackBar: MatSnackBar) {}
 
+  /**
+   * Logic to add items into cart
+   * @param item
+   */
   addItemToCart(item: CartItem) {
     /**
      * Spread all existing items out of the cart array
@@ -46,5 +50,25 @@ export class CartService {
     this.cart.next({ items: cartItems });
     this._snackBar.open('1 item added to the cart', 'Ok', { duration: 3000 });
     console.log(this.cart.value);
+  }
+
+  /**
+   * @param items
+   * @returns Total price of items in cart
+   */
+  getTotal(items: Array<CartItem>): number {
+    return items
+      .map((item) => item.price * item.Qty)
+      .reduce((prev, current) => prev + current, 0);
+  }
+
+  /**
+   * Logic to remove all items from cart
+   */
+  clearCart(): void {
+    this.cart.next({ items: [] });
+    this._snackBar.open('All items in the cart are removed', 'Ok', {
+      duration: 3000,
+    });
   }
 }
