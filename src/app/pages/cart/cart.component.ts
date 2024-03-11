@@ -6,6 +6,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-cart',
@@ -22,6 +23,10 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './cart.component.css',
 })
 export class CartComponent implements OnInit {
+  /**
+   * TO DO : utilize local storage to prvent auto item removal from cart in refresh
+   */
+
   cart: Cart = {
     items: [
       {
@@ -50,14 +55,25 @@ export class CartComponent implements OnInit {
     'Total',
     'Action',
   ];
-  constructor() {}
+  constructor(private _cartService: CartService) {}
   ngOnInit(): void {
-    this.dataSource = this.cart.items;
+    this._cartService.cart.subscribe((_cart: Cart) => {
+      this.cart = _cart;
+      this.dataSource = this.cart.items;
+    });
   }
 
   getTotal(items: Array<CartItem>): number {
     return items
       .map((item) => item.price * item.Qty)
       .reduce((prev, current) => prev + current, 0);
+  }
+
+  removeAllItems() {
+    return this._cartService.clearCart();
+  }
+
+  removeSingleItem(item: CartItem) {
+    return this._cartService.removeSingleItem(item);
   }
 }

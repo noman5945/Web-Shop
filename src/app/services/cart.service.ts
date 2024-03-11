@@ -71,4 +71,15 @@ export class CartService {
       duration: 3000,
     });
   }
+
+  /**
+   * Logic to remove single item
+   */
+  removeSingleItem(item: CartItem): void {
+    const filteredItems = this.cart.value.items.filter((_item) => {
+      _item.Id !== item.Id;
+    });
+    this.cart.next({ items: filteredItems });
+    this._snackBar.open('1 item removed', 'OK', { duration: 3000 });
+  }
 }
