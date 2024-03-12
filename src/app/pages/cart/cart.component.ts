@@ -76,4 +76,12 @@ export class CartComponent implements OnInit {
   removeSingleItem(item: CartItem) {
     return this._cartService.removeSingleItem(item);
   }
+
+  increaseItemQty(item: CartItem) {
+    return this._cartService.increaseQuantity(item);
+  }
+
+  decreaseItemQty(item: CartItem) {
+    return this._cartService.reduceQuantity(item);
+  }
 }

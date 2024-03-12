@@ -8,22 +8,9 @@
       (changeColumn)="onColsNumChange($event)"
     ></app-product-header>
     <mat-grid-list gutterSize="16" [cols]="colsNum" [rowHeight]="rowHight">
-      <mat-grid-tile>
+      <mat-grid-tile *ngFor="let product of allProducts">
         <app-product-box
-          (addToCart)="onAddItemToCart($event)"
-          class="w-full"
-          [fullWidthMode]="colsNum === 1"
-        ></app-product-box>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <app-product-box
-          (addToCart)="onAddItemToCart($event)"
-          class="w-full"
-          [fullWidthMode]="colsNum === 1"
-        ></app-product-box>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <app-product-box
+          [product]="product"
           (addToCart)="onAddItemToCart($event)"
           class="w-full"
           [fullWidthMode]="colsNum === 1"

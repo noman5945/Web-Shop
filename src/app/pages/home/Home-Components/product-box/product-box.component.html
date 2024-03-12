@@ -3,16 +3,16 @@
     <img
       class="mb-1 mx-auto h-[200px]"
       [ngClass]="{ 'h-200px': !fullWidthMode, 'h-[360px]': fullWidthMode }"
-      src="https://via.placeholder.com/150"
+      [src]="product?.image"
     />
     <div class="w-full p-3 font-bold">
       <div>
-        <h5>LED</h5>
-        <p class="truncate hover:whitespace-normal">Small Solder Board</p>
-        <p *ngIf="fullWidthMode">Description</p>
+        <h5>{{ product?.category }}</h5>
+        <p class="truncate hover:whitespace-normal">{{ product?.title }}</p>
+        <p *ngIf="fullWidthMode">{{ product?.description }}</p>
       </div>
       <div class="flex justify-between p-3">
-        <span class="text-red-700"> {{ "150" | currency }}</span>
+        <span class="text-red-700"> {{ product?.price | currency }}</span>
         <button (click)="onAddToCart()">
           <mat-icon>shopping_cart</mat-icon>
         </button>

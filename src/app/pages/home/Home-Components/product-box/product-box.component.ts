@@ -14,16 +14,9 @@ import { CartItem } from '../../../../models/cart.model';
 })
 export class ProductBoxComponent {
   @Input() fullWidthMode = false;
-  product: Product | undefined = {
-    id: 1,
-    title: 'LED',
-    price: 150,
-    category: 'Robotics',
-    description: 'Description',
-    imageURL: 'https://via.placeholder.com/150',
-  };
-  @Output()
-  addToCart: EventEmitter<Product> = new EventEmitter();
+  @Input() product: Product | undefined;
+
+  @Output() addToCart: EventEmitter<Product> = new EventEmitter();
   constructor() {}
 
   onAddToCart(): void {

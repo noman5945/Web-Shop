@@ -73,12 +73,45 @@ export class CartService {
   }
 
   /**
+   * Logic to increase the quantity of that item
+   * @param item
+   */
+  increaseQuantity(item: CartItem): void {
+    this.cart.value.items.map((_item) => {
+      if (_item.Id === item.Id) {
+        _item.Qty++;
+      }
+    });
+  }
+
+  /**
+   * Logic to decrease quantity. If lower than 0 then remove the whole item
+   * @param item
+   */
+  reduceQuantity(item: CartItem): void {
+    let removedItem;
+    this.cart.value.items.map((_item) => {
+      if (_item.Id === item.Id) {
+        _item.Qty--;
+      }
+      if (_item.Qty === 0) {
+        removedItem = _item;
+      }
+    });
+    if (removedItem) {
+      this.removeSingleItem(removedItem);
+    }
+  }
+
+  /**
    * Logic to remove single item
    */
   removeSingleItem(item: CartItem): void {
+    console.log(item.Id);
     const filteredItems = this.cart.value.items.filter((_item) => {
       _item.Id !== item.Id;
     });
+    console.log(filteredItems);
     this.cart.next({ items: filteredItems });
     this._snackBar.open('1 item removed', 'OK', { duration: 3000 });
   }
