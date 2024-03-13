@@ -9,6 +9,7 @@ import { Product } from '../../models/product.model';
 import { StoreService } from '../../services/store.service';
 import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { LoaderComponent } from '../../components/loader/loader.component';
 
 const ROWS_HEIGHT: { [id: number]: number } = { 1: 400, 3: 335, 4: 445 };
 
@@ -22,6 +23,7 @@ const ROWS_HEIGHT: { [id: number]: number } = { 1: 400, 3: 335, 4: 445 };
     MatGridListModule,
     ProductBoxComponent,
     CommonModule,
+    LoaderComponent,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
@@ -63,7 +65,6 @@ export class HomeComponent implements OnInit, OnDestroy {
       .getAllProducts(this.sort, this.limit)
       .subscribe((_allItems) => {
         this.allProducts = _allItems;
-        console.log(this.allProducts);
       });
   }
 

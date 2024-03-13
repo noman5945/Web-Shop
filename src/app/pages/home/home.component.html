@@ -17,5 +17,6 @@
         ></app-product-box>
       </mat-grid-tile>
     </mat-grid-list>
+    <app-loader *ngIf="allProducts === undefined"></app-loader>
   </mat-drawer-content>
 </mat-drawer-container>
