@@ -108,8 +108,9 @@ export class CartService {
    */
   removeSingleItem(item: CartItem): void {
     console.log(item.Id);
+    console.log(this.cart.value.items);
     const filteredItems = this.cart.value.items.filter((_item) => {
-      _item.Id !== item.Id;
+      return _item.Id !== item.Id;
     });
     console.log(filteredItems);
     this.cart.next({ items: filteredItems });
