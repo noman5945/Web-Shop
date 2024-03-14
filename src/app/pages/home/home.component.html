@@ -6,6 +6,8 @@
   <mat-drawer-content class="p-6">
     <app-product-header
       (changeColumn)="onColsNumChange($event)"
+      (changeSortOrder)="onSortOrderChange($event)"
+      (changeItemNumber)="onItemsNumberChange($event)"
     ></app-product-header>
     <mat-grid-list gutterSize="16" [cols]="colsNum" [rowHeight]="rowHight">
       <mat-grid-tile *ngFor="let product of allProducts">

@@ -12,20 +12,26 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './product-header.component.css',
 })
 export class ProductHeaderComponent {
-  sortOrder: string = 'Desc';
+  sortOrder: string = 'desc';
   showNumberofItems: number = 12;
   showItemsLimit: number[] = [12, 24, 36];
   @Output()
   changeColumn = new EventEmitter<number>();
+  @Output()
+  changeSortOrder = new EventEmitter<string>();
+  @Output()
+  changeItemNumber = new EventEmitter<number>();
 
   constructor() {}
 
   onSortUpdate(newSortType: string): void {
     this.sortOrder = newSortType;
+    this.changeSortOrder.emit(newSortType);
   }
 
   onShowItemNumberUpdate(itemNum: number): void {
     this.showNumberofItems = itemNum;
+    this.changeItemNumber.emit(itemNum);
   }
 
   onColumnChange(colsNum: number): void {

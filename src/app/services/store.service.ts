@@ -18,10 +18,23 @@ export class StoreService {
    */
   getAllProducts(
     sort: string = 'desc',
-    limit: number = 12
+    limit: number = 12,
+    category?: string
   ): Observable<Array<Product>> {
     return this._httpClient.get<Array<Product>>(
-      `${DEFAULT_URL}/products?sort=${sort}&limit=${limit}`
+      `${DEFAULT_URL}/products${
+        category ? '/category/' + category : ''
+      }?sort=${sort}&limit=${limit}`
+    );
+  }
+
+  /**
+   * Function to get all categories by calling the api
+   * @returns Array of categories (ArraY<string>)
+   */
+  getAllCategories(): Observable<Array<string>> {
+    return this._httpClient.get<Array<string>>(
+      `${DEFAULT_URL}/products/categories`
     );
   }
 }
