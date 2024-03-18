@@ -1,16 +1,21 @@
 <mat-toolbar class="p-5 mx-auto border-x justify-between">
   <a routerLink="home">WebEshop</a>
 
-  <!-- clicking this button will trigger the small pop up window (<mat-menu>) -->
-  <button mat-icon-button [matMenuTriggerFor]="menu">
-    <mat-icon
-      [matBadge]="itemsQuantity"
-      [matBadgeHidden]="itemsQuantity === 0"
-      matBadgeColor="warn"
-      >shopping_cart</mat-icon
+  <div class="flex items-center">
+    <!-- clicking this button will trigger the small pop up window (<mat-menu>) -->
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon
+        [matBadge]="itemsQuantity"
+        [matBadgeHidden]="itemsQuantity === 0"
+        matBadgeColor="warn"
+        >shopping_cart</mat-icon
+      >
+    </button>
+    <a mat-raised-button color="primary" class="ms-1" routerLink="login"
+      >Sign In</a
     >
-  </button>
-
+    <a mat-raised-button class="ms-1" routerLink="signup">Sign Up</a>
+  </div>
   <!-- mat menu shows a small modal like window under icon diplaying how many items added and other info-->
   <mat-menu #menu="matMenu">
     <div class="p-3 divide-y divide-solid">

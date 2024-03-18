@@ -12,6 +12,7 @@ export class CartService {
    * when a new observer subscribes to a BehaviorSubject, it immediately receives the current value (or the last value that was emitted).
    * simply the the value of 'cart' will change whenever a new item is added by the user on runtime
    * When added to the cart a notification will be displayed. MatsnackBar will do the job so the dependecy was injected via constructor
+   * payment api http://localhost:5000/payment
    */
   cart = new BehaviorSubject<Cart>({ items: [] });
   constructor(private _snackBar: MatSnackBar) {}
