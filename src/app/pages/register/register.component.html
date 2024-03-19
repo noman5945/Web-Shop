@@ -1,1 +1,73 @@
-<p>register works!</p>
+<div class="pt-[50%] ps-3 lg:pt-[15%] lg:ps-[40%]">
+  <div
+    class="w-[335px] lg:w-[450px] bg-login-bg rounded-md shadow-md flex flex-col items-center"
+  >
+    <div class="text-2xl font-bold my-2">
+      <p>Sign Up</p>
+    </div>
+    <div class="mx-2">
+      <form (ngSubmit)="onSubmit()">
+        <mat-form-field class="w-full">
+          <mat-label>Enter Your Email</mat-label>
+          <input
+            matInput
+            placeholder="pat@example.com"
+            [formControl]="email"
+            required
+          />
+          @if (email.invalid) {
+          <mat-error>{{ getErrorMessage() }}</mat-error>
+          }
+        </mat-form-field>
+        <mat-form-field class="w-full">
+          <mat-label>Enter your password</mat-label>
+          <input
+            matInput
+            [type]="hide ? 'password' : 'text'"
+            [formControl]="password"
+            required
+            pattern="(?=.*[0-9])"
+            minlength="6"
+          />
+          <button
+            mat-icon-button
+            matSuffix
+            (click)="hide = !hide"
+            [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide"
+          >
+            <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+          </button>
+          @if(password.invalid){
+          <mat-error>{{ getPassErrorMsge() }}</mat-error>
+          }
+        </mat-form-field>
+        <mat-form-field class="w-full">
+          <mat-label>Retype your password</mat-label>
+          <input
+            matInput
+            [type]="retypeHide ? 'password' : 'text'"
+            [formControl]="retypePassword"
+            required
+            pattern="(?=.*[0-9])"
+            minlength="6"
+          />
+          <button
+            mat-icon-button
+            matSuffix
+            (click)="retypeHide = !retypeHide"
+            [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="retypeHide"
+          >
+            <mat-icon>{{
+              retypeHide ? "visibility_off" : "visibility"
+            }}</mat-icon>
+          </button>
+          @if(retypePassword.invalid){
+          <mat-error>{{ getRetypePassErrorMsg() }}</mat-error>
+          }
+        </mat-form-field>
+      </form>
+    </div>
+  </div>
+</div>
