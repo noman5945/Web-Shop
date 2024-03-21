@@ -35,6 +35,7 @@
             (click)="hide = !hide"
             [attr.aria-label]="'Hide password'"
             [attr.aria-pressed]="hide"
+            type="button"
           >
             <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
           </button>
@@ -58,6 +59,7 @@
             (click)="retypeHide = !retypeHide"
             [attr.aria-label]="'Hide password'"
             [attr.aria-pressed]="retypeHide"
+            type="button"
           >
             <mat-icon>{{
               retypeHide ? "visibility_off" : "visibility"
@@ -67,6 +69,14 @@
           <mat-error>{{ getRetypePassErrorMsg() }}</mat-error>
           }
         </mat-form-field>
+        <button
+          mat-raised-button
+          color="primary"
+          class="mx-[38%] my-2"
+          type="submit"
+        >
+          Sign Up
+        </button>
       </form>
     </div>
   </div>

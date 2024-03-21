@@ -33,7 +33,7 @@ export class LoginComponent {
   email = new FormControl('', [Validators.required, Validators.email]);
   password = new FormControl('', [
     Validators.required,
-    Validators.pattern('(?=.*[0-9])'),
+    //Validators.pattern('^(?=[a-zA-Z])(?=[^0-9]*[0-9])+$'),
     Validators.minLength(6),
   ]);
 
@@ -49,15 +49,22 @@ export class LoginComponent {
     if (this.password.hasError('required')) {
       return 'You must enter a password';
     }
+    /*
+    pattern="^(?=[a-zA-Z])(?=[^0-9]*[0-9])+$"
     if (this.password.hasError('pattern')) {
-      return 'Password must contain a number';
+      return 'Password must contain at least a number';
     }
+    */
     return this.password.hasError('minLength')
-      ? 'Password must be at least 6 characters'
-      : '';
+      ? ''
+      : 'Password must be at least 6 characters';
   }
 
   onSubmit() {
+    if (this.email.value == '' || this.password.value == '') {
+      alert('Some fields are empty');
+      return;
+    }
     console.log(this.email.value);
     console.log(this.password.value);
     this.email.reset();

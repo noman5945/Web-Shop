@@ -26,7 +26,6 @@
             [type]="hide ? 'password' : 'text'"
             [formControl]="password"
             required
-            pattern="(?=.*[0-9])"
             minlength="6"
           />
           <button
@@ -35,6 +34,7 @@
             (click)="hide = !hide"
             [attr.aria-label]="'Hide password'"
             [attr.aria-pressed]="hide"
+            type="button"
           >
             <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
           </button>
@@ -57,8 +57,10 @@
         >
       </p>
       <hr />
-      <div class="flex flex-col items-center">
-        <p>Login with google</p>
+      <div class="flex flex-col items-center my-3">
+        <button mat-raised-button class="flex">
+          <mat-icon>google</mat-icon><span>Login with google</span>
+        </button>
       </div>
     </div>
   </div>

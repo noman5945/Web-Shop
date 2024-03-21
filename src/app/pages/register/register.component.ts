@@ -42,11 +42,22 @@ export class RegisterComponent {
     Validators.pattern('(?=.*[0-9])'),
     Validators.minLength(6),
   ]);
-  onSubmit() {
-    console.log(this.email.value);
-    console.log(this.password.value);
+  onSubmit(): void {
+    if (this.password.value != this.retypePassword.value) {
+      alert('Password mismatch');
+      return;
+    }
+    if (
+      this.password.value == '' ||
+      this.retypePassword.value == '' ||
+      this.email.value == ''
+    ) {
+      alert('Some fields are empty');
+      return;
+    }
     this.email.reset();
     this.password.reset();
+    this.retypePassword.reset();
   }
 
   getErrorMessage() {
@@ -69,5 +80,15 @@ export class RegisterComponent {
       : '';
   }
 
-  getRetypePassErrorMsg() {}
+  getRetypePassErrorMsg() {
+    if (this.retypePassword.hasError('required')) {
+      return 'You must enter a password';
+    }
+    if (this.retypePassword.hasError('pattern')) {
+      return 'Password must contain a number';
+    }
+    return this.retypePassword.hasError('minLength')
+      ? 'Password must be at least 6 characters'
+      : '';
+  }
 }
