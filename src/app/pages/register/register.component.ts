@@ -31,6 +31,7 @@ import { RouterModule } from '@angular/router';
 export class RegisterComponent {
   hide: boolean = true;
   retypeHide: boolean = true;
+  userName = new FormControl('', [Validators.required]);
   email = new FormControl('', [Validators.required, Validators.email]);
   password = new FormControl('', [
     Validators.required,
@@ -50,7 +51,8 @@ export class RegisterComponent {
     if (
       this.password.value == '' ||
       this.retypePassword.value == '' ||
-      this.email.value == ''
+      this.email.value == '' ||
+      this.userName.value == ''
     ) {
       alert('Some fields are empty');
       return;
@@ -58,6 +60,11 @@ export class RegisterComponent {
     this.email.reset();
     this.password.reset();
     this.retypePassword.reset();
+    this.userName.reset();
+  }
+
+  getNameErrorMessage() {
+    return this.userName.hasError('required') ? 'Enter a user name' : '';
   }
 
   getErrorMessage() {

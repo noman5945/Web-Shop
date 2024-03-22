@@ -8,6 +8,18 @@
     <div class="mx-2">
       <form (ngSubmit)="onSubmit()">
         <mat-form-field class="w-full">
+          <mat-label>Enter an User Name</mat-label>
+          <input
+            matInput
+            placeholder="user123"
+            [formControl]="userName"
+            required
+          />
+          @if (userName.invalid) {
+          <mat-error>{{ getNameErrorMessage() }}</mat-error>
+          }
+        </mat-form-field>
+        <mat-form-field class="w-full">
           <mat-label>Enter Your Email</mat-label>
           <input
             matInput
@@ -78,6 +90,12 @@
           Sign Up
         </button>
       </form>
+      <p class="my-2 text-center text-sm font-semibold">
+        Already have an account?
+        <span class="text-blue-400"><a routerLink="/login">Login here</a></span
+        >.
+      </p>
+      <hr />
     </div>
   </div>
 </div>

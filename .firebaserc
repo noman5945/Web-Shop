@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "eshop-angular-a49aa": {
+      "hosting": {
+        "estore": [
+          "eshop-angular-a49aa"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "eshop-angular-a49aa"
+  }
+}

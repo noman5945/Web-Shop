@@ -90,6 +90,23 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "version": 2
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "estore:build:production",
+              "serveTarget": "estore:serve:production"
+            },
+            "development": {
+              "buildTarget": "estore:build:development",
+              "serveTarget": "estore:serve:development"
+            }
+          },
+          "defaultConfiguration": "production"
         }
       }
     }
