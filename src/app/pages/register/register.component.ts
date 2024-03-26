@@ -10,7 +10,9 @@ import {
   Validators,
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
+import { User } from '../../models/user.model';
 
 @Component({
   selector: 'app-register',
@@ -43,6 +45,10 @@ export class RegisterComponent {
     Validators.pattern('(?=.*[0-9])'),
     Validators.minLength(6),
   ]);
+  errorMsg: string | null = null;
+
+  constructor(private _authService: AuthService, private _router: Router) {}
+
   onSubmit(): void {
     if (this.password.value != this.retypePassword.value) {
       alert('Password mismatch');
@@ -57,6 +63,19 @@ export class RegisterComponent {
       alert('Some fields are empty');
       return;
     }
+    const newUser: User = {
+      username: this.userName.value || '',
+      email: this.email.value || '',
+      password: this.password.value || '',
+    };
+    this._authService.createNewAccount(newUser).subscribe({
+      next: () => {
+        this._router.navigateByUrl('/');
+      },
+      error: (err) => {
+        this.errorMsg = err.code;
+      },
+    });
     this.email.reset();
     this.password.reset();
     this.retypePassword.reset();

@@ -79,6 +79,8 @@
           </button>
           @if(retypePassword.invalid){
           <mat-error>{{ getRetypePassErrorMsg() }}</mat-error>
+          } @if(errorMsg){
+          <mat-error>{{ errorMsg }}</mat-error>
           }
         </mat-form-field>
         <button

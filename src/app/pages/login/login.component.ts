@@ -10,7 +10,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Route, Router, RouterModule } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -36,7 +37,7 @@ export class LoginComponent {
     //Validators.pattern('^(?=[a-zA-Z])(?=[^0-9]*[0-9])+$'),
     Validators.minLength(6),
   ]);
-
+  errorAuth: string | null = null;
   getErrorMessage() {
     if (this.email.hasError('required')) {
       return 'You must enter a value';
@@ -60,13 +61,24 @@ export class LoginComponent {
       : 'Password must be at least 6 characters';
   }
 
+  constructor(private _authService: AuthService, private router: Router) {}
+
   onSubmit() {
     if (this.email.value == '' || this.password.value == '') {
       alert('Some fields are empty');
       return;
     }
-    console.log(this.email.value);
-    console.log(this.password.value);
+    this._authService
+      .accountLogin(this.email.value || '', this.password.value || '')
+      .subscribe({
+        next: () => {
+          this.router.navigateByUrl('/');
+        },
+        error: (err) => {
+          this.errorAuth = err.code;
+        },
+      });
+
     this.email.reset();
     this.password.reset();
   }

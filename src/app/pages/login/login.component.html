@@ -40,6 +40,8 @@
           </button>
           @if(password.invalid){
           <mat-error>{{ getPassErrorMsge() }}</mat-error>
+          } @if(errorAuth){
+          <mat-error>{{ errorAuth }}</mat-error>
           }
         </mat-form-field>
         <button
