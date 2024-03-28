@@ -11,10 +11,17 @@
         >shopping_cart</mat-icon
       >
     </button>
+    @if(this.loggedUser()===null){
+
     <a mat-raised-button color="primary" class="ms-1" routerLink="login"
       >Sign In</a
     >
     <a mat-raised-button class="ms-1" routerLink="signup">Sign Up</a>
+    } @if(this.loggedUser()){
+    <button (click)="onLogOut()" mat-raised-button class="ms-1">
+      Sign Out
+    </button>
+    }
   </div>
   <!-- mat menu shows a small modal like window under icon diplaying how many items added and other info-->
   <mat-menu #menu="matMenu">

@@ -15,6 +15,7 @@ import { MatListModule } from '@angular/material/list';
 import { HeaderComponent } from './components/header/header.component';
 import { CartService } from './services/cart.service';
 import { Cart } from './models/cart.model';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -41,10 +42,26 @@ import { Cart } from './models/cart.model';
 export class AppComponent implements OnInit {
   title = 'estore';
   cart: Cart = { items: [] };
-  constructor(private _cartService: CartService) {}
+  constructor(
+    private _cartService: CartService,
+    private _authService: AuthService
+  ) {}
   ngOnInit(): void {
     this._cartService.cart.subscribe((_cart) => {
       this.cart = _cart;
+    });
+    this._authService.user$.subscribe((_user) => {
+      if (_user) {
+        //logged in user found
+        this._authService.currentUserSignal.set({
+          username: _user.displayName!,
+          email: _user.email!,
+        });
+      } else {
+        //No logged In user
+        this._authService.currentUserSignal.set(null);
+      }
+      //console.log(this._authService.currentUserSignal());
     });
   }
 }
