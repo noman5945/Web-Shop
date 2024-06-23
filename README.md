@@ -2,6 +2,8 @@ Tools Used: 1. Angular Material(ng add [packegename]) 2. Tailwind CSS (Angular)
 
 # Estore
 
+server live link: https://estore-server-pi.vercel.app/
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.1.3.
 
 ## Development server

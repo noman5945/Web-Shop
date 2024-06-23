@@ -7,6 +7,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { CartService } from '../../services/cart.service';
+import { HttpClient } from '@angular/common/http';
+import { loadStripe } from '@stripe/stripe-js';
 
 @Component({
   selector: 'app-cart',
@@ -55,7 +57,7 @@ export class CartComponent implements OnInit {
     'Total',
     'Action',
   ];
-  constructor(private _cartService: CartService) {}
+  constructor(private _cartService: CartService, private http: HttpClient) {}
   ngOnInit(): void {
     this._cartService.cart.subscribe((_cart: Cart) => {
       this.cart = _cart;
@@ -83,5 +85,20 @@ export class CartComponent implements OnInit {
 
   decreaseItemQty(item: CartItem) {
     return this._cartService.reduceQuantity(item);
+  }
+  onCheckOut(): void {
+    this.http
+      .post('https://estore-server-pi.vercel.app/payment', {
+        items: this.cart.items,
+      })
+      .subscribe(async (res: any) => {
+        const stripe = await loadStripe(
+          'pk_test_51OZa4oAuG8hYrSNaAXnPWtgzyXvUtO8oomArn9uEFaEK5M8xr9mNJC30nEGfGhAG41KzN7yPPewbUW70emI1vYhG00Zo7B5kpa'
+        );
+        console.log(res);
+        stripe?.redirectToCheckout({
+          sessionId: res.id,
+        });
+      });
   }
 }
